@@ -3,11 +3,9 @@ package com.boseyo.backend.service
 import com.boseyo.backend.dto.SvgDto
 import com.boseyo.backend.entity.MakeDrawEntity
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
@@ -54,9 +52,6 @@ class RestTemplateService {
         val headers = HttpHeaders()
         return try {
             val om = ObjectMapper()
-            restTemplate.postForObject(
-                uri, headers, String::class.java
-            )
             om.readValue(restTemplate.postForObject(
                 uri, headers, String::class.java
             ), ResSvg::class.java).sentence
