@@ -1,7 +1,7 @@
 package com.boseyo.backend.controller
 
-import com.boseyo.backend.dto.MakeDto
-import com.boseyo.backend.service.MakeService
+import com.boseyo.backend.dto.SvgDto
+import com.boseyo.backend.service.RestTemplateService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-data class ResponseMake(
+data class ResponseML(
     val status: String,
     val data: String
 )
-
 @RestController
-@RequestMapping("/api/make")
-class MakeController(private val makeService: MakeService) {
-    @PostMapping("/draw")
+@RequestMapping("/api/ml")
+class MLController(private val restTemplateService: RestTemplateService) {
+    @PostMapping("/svg")
     @PreAuthorize("hasAnyRole('USER')")
-    fun draw(@RequestBody @Valid makeDto: MakeDto): ResponseEntity<ResponseMake> {
-        val response = makeService.draw(makeDto)
-        return ResponseEntity.ok(response?.let { ResponseMake("success", it) })
+    fun getSVG(@RequestBody @Valid svgDto: SvgDto): ResponseEntity<ResponseML> {
+        val test = restTemplateService.getSVG(svgDto)
+        return ResponseEntity.ok(test?.let { ResponseML("success", it) })
     }
 }
