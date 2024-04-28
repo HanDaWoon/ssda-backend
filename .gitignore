@@ -38,3 +38,4 @@ out/
 
 ### ENV ###
 application-prod.properties
+src/main/resources/application.yml
